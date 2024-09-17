@@ -1,0 +1,86 @@
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Виджет Погоды</title>  
+    <style>  
+        body {  
+            font-family: Arial, sans-serif;  
+            display: flex;  
+            justify-content: center;  
+            align-items: center;  
+            height: 100vh;  
+            background-color: #f4f4f4;  
+            margin: 0; /* Удаляем отступы рук */  
+        }  
+        .widget {  
+            background-color: white;  
+            border-radius: 8px;  
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
+            padding: 20px;  
+            text-align: center;  
+            width: 300px;  
+        }  
+        .result {  
+            font-size: 24px;  
+            margin-top: 10px;  
+        }  
+    </style>  
+</head>  
+<body>  
+    <div class="widget">  
+        <h2>Скорость ветра</h2>  
+        <div class="result" id="wind-info">Загрузка...</div>  
+    </div>  
+
+    <script>  
+        // Глобальные координаты  
+        var hall_longitude = 55.9117; // Долгота  
+        var hall_latitude = 37.85668; // Широта  
+        var apiKey = '559071a25184be0c7f598cf211850935'; // API-ключ OpenWeatherMap  
+
+        // Функция для получения данных о погоде  
+        function getWeather() {  
+            var url = `https://api.openweathermap.org/data/2.5/weather?lat=${hall_latitude}&lon=${hall_longitude}&appid=${apiKey}&units=metric`;  
+
+            fetch(url)  
+                .then(response => response.json())  
+                .then(data => {  
+                    console.log(data); // Для отладки  
+                    if (data.wind) {  
+                        var windSpeed = Math.round(data.wind.speed); // Получаем скорость ветра в м/с  
+                        var windDeg = data.wind.deg; // Получаем направление ветра в градусах  
+
+                        // Определяем направление ветра  
+                        var windDirection = getWindDirection(windDeg);  
+
+                        // Выводим результат в элемент с id "wind-info"  
+                        document.getElementById('wind-info').textContent = `${windSpeed} м/с ${windDirection}`;  
+                    } else {  
+                        document.getElementById('wind-info').textContent = 'Данные о ветре недоступны';  
+                    }  
+                })  
+                .catch(error => {  
+                    console.error('Ошибка:', error);  
+                    document.getElementById('wind-info').textContent = 'Ошибка загрузки данных';  
+                });  
+        }  
+
+        // Функция для определения направления ветра  
+        function getWindDirection(degree) {  
+            if (degree >= 337.5 || degree < 22.5) return 'С';  
+            if (degree >= 22.5 && degree < 67.5) return 'С-В';  
+            if (degree >= 67.5 && degree < 112.5) return 'В';  
+            if (degree >= 112.5 && degree < 157.5) return 'Ю-В';  
+            if (degree >= 157.5 && degree < 202.5) return 'Ю';  
+            if (degree >= 202.5 && degree < 247.5) return 'Ю-З';  
+            if (degree >= 247.5 && degree < 292.5) return 'З';  
+            if (degree >= 292.5 && degree < 337.5) return 'С-З';  
+        }  
+
+        // Вызываем функцию  
+        getWeather();  
+    </script>  
+</body>  
+</html>
