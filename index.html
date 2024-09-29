@@ -1,86 +1,457 @@
-<!DOCTYPE html>  
-<html lang="ru">  
-<head>  
-    <meta charset="UTF-8">  
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>Виджет Погоды</title>  
-    <style>  
-        body {  
-            font-family: Arial, sans-serif;  
-            display: flex;  
-            justify-content: center;  
-            align-items: center;  
-            height: 100vh;  
-            background-color: #f4f4f4;  
-            margin: 0; /* Удаляем отступы рук */  
-        }  
-        .widget {  
-            background-color: white;  
-            border-radius: 8px;  
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);  
-            padding: 20px;  
-            text-align: center;  
-            width: 300px;  
-        }  
-        .result {  
-            font-size: 24px;  
-            margin-top: 10px;  
-        }  
-    </style>  
-</head>  
-<body>  
-    <div class="widget">  
-        <h2>Скорость ветра</h2>  
-        <div class="result" id="wind-info">Загрузка...</div>  
-    </div>  
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Настраиваемая таблица</title>
+    <style>
+        @font-face {
+            font-family: "Gilroy";
+            src: url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.eot");
+            src: local("Gilroy Light"), local("Gilroy-Light"),
+            url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.eot?#iefix") format("embedded-opentype"),
+            url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.woff") format("woff"),
+            url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.ttf") format("truetype");
+        }
 
-    <script>  
-        // Глобальные координаты  
-        var hall_longitude = 55.9117; // Долгота  
-        var hall_latitude = 37.85668; // Широта  
-        var apiKey = '559071a25184be0c7f598cf211850935'; // API-ключ OpenWeatherMap  
+        body {
+            font-family: "Gilroy";
+            font-size: 21px;   
 
-        // Функция для получения данных о погоде  
-        function getWeather() {  
-            var url = `https://api.openweathermap.org/data/2.5/weather?lat=${hall_latitude}&lon=${hall_longitude}&appid=${apiKey}&units=metric`;  
+        }
+        .container-table{
+            margin: 5em;
+        }
+        .table {
 
-            fetch(url)  
-                .then(response => response.json())  
-                .then(data => {  
-                    console.log(data); // Для отладки  
-                    if (data.wind) {  
-                        var windSpeed = Math.round(data.wind.speed); // Получаем скорость ветра в м/с  
-                        var windDeg = data.wind.deg; // Получаем направление ветра в градусах  
+            width: 100%; 
+        }
+        .table td, .table th {
+            vertical-align: middle; 
+            text-align: center;
+        }
+        .population {
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+        .form-control {
+            width: 100%; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container-table">
+        <section class="btn-container" style="margin-bottom: 1em;">
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addModal">Добавить</button>
+            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#settingsModal">Настройки</button>
+            <button type="button" class="btn">Выгрузки</button>
+            <button type="button" class="btn">Загрузки</button>
+            <button type="button" class="btn">Печатать</button>
+        </section>
 
-                        // Определяем направление ветра  
-                        var windDirection = getWindDirection(windDeg);  
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="column-fio"><input type="text" class="form-control" value="" placeholder="ФИО"></th>
+                        <th class="column-position"><input type="text" class="form-control" value="" placeholder="Должность"></th>
+                        <th class="column-contact"><input type="text" class="form-control" value="" placeholder="Контактная информация"></th>
+                        <th class="column-department"><input type="text" class="form-control" value="" placeholder="Подразделение"></th>
+                        <th class="column-status"><input type="text" class="form-control" value="" placeholder="Статус"></th>
+                        <th class="column-date"><input type="text" class="form-control" value="" placeholder="Дата регистрации"></th>
+                        <th style="text-align: center;"><button class="btn btn-primary" style="width: 100%;">Найти</button></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="column-fio">Иванов Иван Иванович</td>
+                        <td class="column-position">Зоотехник</td>
+                        <td class="column-contact">ivanov@example.com</td>
+                        <td class="column-department">Корпус А-12</td>
+                        <td class="column-status">Активный</td>
+                        <td class="column-date">16.09.2024</td>
+                        <td class="column-actions text-center">
+                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="column-fio">Петрова Анна Сергеевна</td>
+                        <td class="column-position">Менеджер</td>
+                        <td class="column-contact">petrova@example.com</td>
+                        <td class="column-department">Отдел продаж</td>
+                        <td class="column-status">Активный</td>
+                        <td class="column-date">12.03.2023</td>
+                        <td class="column-actions text-center">
+                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="column-fio">Сидоров Николай Александрович</td>
+                        <td class="column-position">Инженер</td>
+                        <td class="column-contact">sidorov@example.com</td>
+                        <td class="column-department">Технический отдел</td>
+                        <td class="column-status">Уволен</td>
+                        <td class="column-date">22.05.2022</td>
+                        <td class="column-actions text-center">
+                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="column-fio">Кузнецова Марина Петровна</td>
+                        <td class="column-position">Бухгалтер</td>
+                        <td class="column-contact">kuznetsova@example.com</td>
+                        <td class="column-department">Финансовый отдел</td>
+                        <td class="column-status">Активный</td>
+                        <td class="column-date">05.12.2021</td>
+                        <td class="column-actions text-center">
+                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" data-bs-toggle="tooltip" onclick="editRecord(this)">
+                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="tooltip" data-bs-placement="top">
+                            
+                        </td>
+                    </tr>
+                </tbody>
+                
+            </table>
+        </div>
 
-                        // Выводим результат в элемент с id "wind-info"  
-                        document.getElementById('wind-info').textContent = `${windSpeed} м/с ${windDirection}`;  
-                    } else {  
-                        document.getElementById('wind-info').textContent = 'Данные о ветре недоступны';  
-                    }  
-                })  
-                .catch(error => {  
-                    console.error('Ошибка:', error);  
-                    document.getElementById('wind-info').textContent = 'Ошибка загрузки данных';  
-                });  
-        }  
+        <!-- Модальное окно для добавления новой записи -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addModalLabel">Добавить новую запись</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="addRecordForm">
+                            <div class="mb-3">
+                                <label for="addFIO" class="form-label">ФИО</label>
+                                <input type="text" class="form-control" id="addFIO" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addPosition" class="form-label">Должность</label>
+                                <input type="text" class="form-control" id="addPosition" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addContact" class="form-label">Контактная информация</label>
+                                <input type="email" class="form-control" id="addContact" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addDepartment" class="form-label">Подразделение</label>
+                                <input type="text" class="form-control" id="addDepartment" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addStatus" class="form-label">Статус</label>
+                                <input type="text" class="form-control" id="addStatus" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="addDate" class="form-label">Дата регистрации</label>
+                                <input type="text" class="form-control" id="addDate" placeholder="дд.мм.гггг" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" onclick="saveRecord()">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        // Функция для определения направления ветра  
-        function getWindDirection(degree) {  
-            if (degree >= 337.5 || degree < 22.5) return 'С';  
-            if (degree >= 22.5 && degree < 67.5) return 'С-В';  
-            if (degree >= 67.5 && degree < 112.5) return 'В';  
-            if (degree >= 112.5 && degree < 157.5) return 'Ю-В';  
-            if (degree >= 157.5 && degree < 202.5) return 'Ю';  
-            if (degree >= 202.5 && degree < 247.5) return 'Ю-З';  
-            if (degree >= 247.5 && degree < 292.5) return 'З';  
-            if (degree >= 292.5 && degree < 337.5) return 'С-З';  
-        }  
+        <!-- Модальное окно для подтверждения удаления -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Вы точно хотите удалить запись?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-danger">Удалить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        // Вызываем функцию  
-        getWeather();  
-    </script>  
-</body>  
+        <!-- Модальное окно для редактирования записи -->
+        <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Редактировать запись</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editRecordForm">
+                            <div class="mb-3">
+                                <label for="editFIO" class="form-label">ФИО</label>
+                                <input type="text" class="form-control" id="editFIO" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editPosition" class="form-label">Должность</label>
+                                <input type="text" class="form-control" id="editPosition" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editContact" class="form-label">Контактная информация</label>
+                                <input type="email" class="form-control" id="editContact" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editDepartment" class="form-label">Подразделение</label>
+                                <input type="text" class="form-control" id="editDepartment" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editStatus" class="form-label">Статус</label>
+                                <input type="text" class="form-control" id="editStatus" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="editDate" class="form-label">Дата регистрации</label>
+                                <input type="text" class="form-control" id="editDate" placeholder="дд.мм.гггг" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" onclick="updateRecord()">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно для настройки отображения колонок -->
+        <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="settingsModalLabel">Настройки видимости колонок</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="settingsForm">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="columnFioCheck" checked>
+                                <label class="form-check-label" for="columnFioCheck">ФИО</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="columnPositionCheck" checked>
+                                <label class="form-check-label" for="columnPositionCheck">Должность</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="columnContactCheck" checked>
+                                <label class="form-check-label" for="columnContactCheck">Контактная информация</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="columnDepartmentCheck" checked>
+                                <label class="form-check-label" for="columnDepartmentCheck">Подразделение</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="columnStatusCheck" checked>
+                                <label class="form-check-label" for="columnStatusCheck">Статус</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="columnDateCheck" checked>
+                                <label class="form-check-label" for="columnDateCheck">Дата регистрации</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" onclick="applySettings()">Применить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-pagination d-flex justify-content-between align-items-center">
+            <nav aria-label="Page navigation example" class="mx-auto">
+                <ul class="pagination mb-0">
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Применение настроек отображения колонок
+        function applySettings() {
+            const columns = {
+                fio: document.getElementById('columnFioCheck').checked,
+                position: document.getElementById('columnPositionCheck').checked,
+                contact: document.getElementById('columnContactCheck').checked,
+                department: document.getElementById('columnDepartmentCheck').checked,
+                status: document.getElementById('columnStatusCheck').checked,
+                date: document.getElementById('columnDateCheck').checked
+            };
+
+            document.querySelectorAll('.column-fio').forEach(col => col.style.display = columns.fio ? '' : 'none');
+            document.querySelectorAll('.column-position').forEach(col => col.style.display = columns.position ? '' : 'none');
+            document.querySelectorAll('.column-contact').forEach(col => col.style.display = columns.contact ? '' : 'none');
+            document.querySelectorAll('.column-department').forEach(col => col.style.display = columns.department ? '' : 'none');
+            document.querySelectorAll('.column-status').forEach(col => col.style.display = columns.status ? '' : 'none');
+            document.querySelectorAll('.column-date').forEach(col => col.style.display = columns.date ? '' : 'none');
+
+            // Закрытие модального окна
+            const settingsModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
+            settingsModal.hide();
+        }
+
+        // Маска для поля даты
+        document.getElementById('addDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
+            if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
+            e.target.value = value;
+        });
+        // Маска для поля даты в модальном окне редактирования
+                document.getElementById('editDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
+            if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
+            e.target.value = value;
+        });
+
+        // Открытие формы редактирования с заполненными данными
+        function editRecord(editButton) {
+            const row = editButton.closest('tr');
+            const fio = row.querySelector('.column-fio').textContent;
+            const position = row.querySelector('.column-position').textContent;
+            const contact = row.querySelector('.column-contact').textContent;
+            const department = row.querySelector('.column-department').textContent;
+            const status = row.querySelector('.column-status').textContent;
+            const date = row.querySelector('.column-date').textContent;
+
+            document.getElementById('editFIO').value = fio;
+            document.getElementById('editPosition').value = position;
+            document.getElementById('editContact').value = contact;
+            document.getElementById('editDepartment').value = department;
+            document.getElementById('editStatus').value = status;
+            document.getElementById('editDate').value = date;
+
+            const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+            editModal.show();
+        }
+
+        // Сохранение изменений в записи
+        function updateRecord() {
+            const fio = document.getElementById('editFIO').value;
+            const position = document.getElementById('editPosition').value;
+            const contact = document.getElementById('editContact').value;
+            const department = document.getElementById('editDepartment').value;
+            const status = document.getElementById('editStatus').value;
+            const date = document.getElementById('editDate').value;
+
+            // Получение редактируемой строки
+            const row = document.querySelector('.table tbody tr');
+            row.querySelector('.column-fio').textContent = fio;
+            row.querySelector('.column-position').textContent = position;
+            row.querySelector('.column-contact').textContent = contact;
+            row.querySelector('.column-department').textContent = department;
+            row.querySelector('.column-status').textContent = status;
+            row.querySelector('.column-date').textContent = date;
+
+            // Закрыть модальное окно редактирования
+            const editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
+            editModal.hide();
+        }
+
+        // Сохранение новой записи
+        function saveRecord() {
+            const fio = document.getElementById('addFIO').value;
+            const position = document.getElementById('addPosition').value;
+            const contact = document.getElementById('addContact').value;
+            const department = document.getElementById('addDepartment').value;
+            const status = document.getElementById('addStatus').value;
+            const date = document.getElementById('addDate').value;
+
+            const tableBody = document.querySelector('.table tbody');
+            const newRow = `
+                <tr>
+                    <td class="column-fio">${fio}</td>
+                    <td class="column-position">${position}</td>
+                    <td class="column-contact">${contact}</td>
+                    <td class="column-department">${department}</td>
+                    <td class="column-status">${status}</td>
+                    <td class="column-date">${date}</td>
+                    <td class="column-actions text-center">
+                        <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+                        <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    </td>
+                </tr>
+            `;
+            tableBody.insertAdjacentHTML('beforeend', newRow);
+
+            const addModal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
+            addModal.hide();
+        }
+        
+
+
+    // Функция для поиска и фильтрации строк таблицы
+    function searchTable() {
+        // Получаем все значения из полей ввода для фильтрации
+        const fioFilter = document.querySelector('.column-fio input').value.toLowerCase();
+        const positionFilter = document.querySelector('.column-position input').value.toLowerCase();
+        const contactFilter = document.querySelector('.column-contact input').value.toLowerCase();
+        const departmentFilter = document.querySelector('.column-department input').value.toLowerCase();
+        const statusFilter = document.querySelector('.column-status input').value.toLowerCase();
+        const dateFilter = document.querySelector('.column-date input').value.toLowerCase();
+
+        // Получаем все строки таблицы (кроме первой строки с заголовками)
+        const rows = document.querySelectorAll('table tbody tr');
+
+        // Проходим по каждой строке и проверяем соответствие фильтрам
+        rows.forEach(row => {
+            const fio = row.querySelector('.column-fio').textContent.toLowerCase();
+            const position = row.querySelector('.column-position').textContent.toLowerCase();
+            const contact = row.querySelector('.column-contact').textContent.toLowerCase();
+            const department = row.querySelector('.column-department').textContent.toLowerCase();
+            const status = row.querySelector('.column-status').textContent.toLowerCase();
+            const date = row.querySelector('.column-date').textContent.toLowerCase();
+
+            // Проверяем, соответствуют ли значения фильтрам (или фильтр пустой)
+            const matchesFio = fio.includes(fioFilter);
+            const matchesPosition = position.includes(positionFilter);
+            const matchesContact = contact.includes(contactFilter);
+            const matchesDepartment = department.includes(departmentFilter);
+            const matchesStatus = status.includes(statusFilter);
+            const matchesDate = date.includes(dateFilter);
+
+            // Если строка соответствует всем фильтрам, показываем её, иначе скрываем
+            if (matchesFio && matchesPosition && matchesContact && matchesDepartment && matchesStatus && matchesDate) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    document.querySelector('.btn-primary').addEventListener('click', searchTable);
+
+ 
+
+
+
+
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
