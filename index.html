@@ -212,10 +212,6 @@
                                 <label for="editStatus" class="form-label">Статус</label>
                                 <input type="text" class="form-control" id="editStatus" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="editDate" class="form-label">Дата регистрации</label>
-                                <input type="text" class="form-control" id="editDate" placeholder="дд.мм.гггг" required>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -321,13 +317,6 @@
             if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
             e.target.value = value;
         });
-        // Маска для поля даты в модальном окне редактирования
-                document.getElementById('editDate').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
-            if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
-            e.target.value = value;
-        });
 
         // Открытие формы редактирования с заполненными данными
         function editRecord(editButton) {
@@ -337,14 +326,12 @@
             const contact = row.querySelector('.column-contact').textContent;
             const department = row.querySelector('.column-department').textContent;
             const status = row.querySelector('.column-status').textContent;
-            const date = row.querySelector('.column-date').textContent;
 
             document.getElementById('editFIO').value = fio;
             document.getElementById('editPosition').value = position;
             document.getElementById('editContact').value = contact;
             document.getElementById('editDepartment').value = department;
             document.getElementById('editStatus').value = status;
-            document.getElementById('editDate').value = date;
 
             const editModal = new bootstrap.Modal(document.getElementById('editModal'));
             editModal.show();
@@ -445,7 +432,22 @@
     }
     document.querySelector('.btn-primary').addEventListener('click', searchTable);
 
- 
+    
+    // Функция для установки текущей даты в нужном формате  
+    function setCurrentDate() {  
+        const dateInput = document.getElementById('addDate');  
+        const today = new Date();  
+        const day = String(today.getDate()).padStart(2, '0'); // Обеспечить двухзначный вывод  
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // Январь - это 0  
+        const year = today.getFullYear();  
+        dateInput.value = `${day}.${month}.${year}`; // Установка значения в формате дд.мм.гггг  
+    }  
+
+    // Добавление обработчика события для установки даты, когда модальное окно открывается  
+    var addModal = document.getElementById('addModal');  
+    addModal.addEventListener('show.bs.modal', function (event) {  
+        setCurrentDate(); // Установить текущую дату при открытии модального окна  
+    }); 
 
 
 
