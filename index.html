@@ -4,53 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
     <title>Настраиваемая таблица</title>
-    <style>
-        @font-face {
-            font-family: "Gilroy";
-            src: url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.eot");
-            src: local("Gilroy Light"), local("Gilroy-Light"),
-            url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.eot?#iefix") format("embedded-opentype"),
-            url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.woff") format("woff"),
-            url("https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.ttf") format("truetype");
-        }
-
-        body {
-            font-family: "Gilroy";
-            font-size: 21px;   
-
-        }
-        .container-table{
-            margin: 5em;
-        }
-        .table {
-
-            width: 100%; 
-        }
-        .table td, .table th {
-            vertical-align: middle; 
-            text-align: center;
-        }
-        .population {
-            display: flex; 
-            justify-content: center; 
-            gap: 20px; 
-        }
-        .form-control {
-            width: 100%; 
-        }
-    </style>
 </head>
 <body>
     <div class="container-table">
+        <div class="label">Справочник сотрудников</div>
         <section class="btn-container" style="margin-bottom: 1em;">
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#addModal">Добавить</button>
-            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#settingsModal">Настройки</button>
-            <button type="button" class="btn">Выгрузки</button>
-            <button type="button" class="btn">Загрузки</button>
-            <button type="button" class="btn">Печатать</button>
+            <div class="counter">Счётчик записей: <span id="recordCounter">0</span></div>
+            <button type="button" class="btn button-table" data-bs-toggle="modal" data-bs-target="#addModal">Добавить</button>
+            <button type="button" class="btn button-table" data-bs-toggle="modal" data-bs-target="#settingsModal">Настройки</button>
+            <button type="button" class="btn button-table">Выгрузки</button>
+            <button type="button" class="btn button-table">Загрузки</button>
+            <button type="button" class="btn button-table">Печатать</button>
         </section>
-
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -73,8 +40,9 @@
                         <td class="column-status">Активный</td>
                         <td class="column-date">16.09.2024</td>
                         <td class="column-actions text-center">
-                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
-                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img style="margin-left: 20px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" onclick="prepareDelete(this)" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img style="margin-left: 20px;" src="eye.svg" width="30" height="30" title="Смотреть пользователя" onclick="viewRecord(this)" data-bs-toggle="tooltip">
                         </td>
                     </tr>
                     <tr>
@@ -85,8 +53,9 @@
                         <td class="column-status">Активный</td>
                         <td class="column-date">12.03.2023</td>
                         <td class="column-actions text-center">
-                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
-                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img style="margin-left: 20px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" onclick="prepareDelete(this)" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img style="margin-left: 20px;" src="eye.svg" width="30" height="30" title="Смотреть пользователя" onclick="viewRecord(this)" data-bs-toggle="tooltip">
                         </td>
                     </tr>
                     <tr>
@@ -97,8 +66,9 @@
                         <td class="column-status">Уволен</td>
                         <td class="column-date">22.05.2022</td>
                         <td class="column-actions text-center">
-                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
-                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img style="margin-left: 20px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" onclick="prepareDelete(this)" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img style="margin-left: 20px;" src="eye.svg" width="30" height="30" title="Смотреть пользователя" onclick="viewRecord(this)" data-bs-toggle="tooltip">
                         </td>
                     </tr>
                     <tr>
@@ -109,13 +79,12 @@
                         <td class="column-status">Активный</td>
                         <td class="column-date">05.12.2021</td>
                         <td class="column-actions text-center">
-                            <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" data-bs-toggle="tooltip" onclick="editRecord(this)">
-                            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="tooltip" data-bs-placement="top">
-                            
+                            <img style="margin-left: 20px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
+            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" onclick="prepareDelete(this)" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <img style="margin-left: 20px;" src="eye.svg" width="30" height="30" title="Смотреть пользователя" onclick="viewRecord(this)" data-bs-toggle="tooltip">
                         </td>
                     </tr>
                 </tbody>
-                
             </table>
         </div>
 
@@ -149,10 +118,10 @@
                                 <label for="addStatus" class="form-label">Статус</label>
                                 <input type="text" class="form-control" id="addStatus" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="addDate" class="form-label">Дата регистрации</label>
-                                <input type="text" class="form-control" id="addDate" placeholder="дд.мм.гггг" required>
-                            </div>
+                            <div class="mb-3">  
+                                <label for="addDate" class="form-label">Дата регистрации</label>  
+                                <input type="text" class="form-control" id="addDate" placeholder="дд.мм.гггг" required readonly>  
+                            </div>  
                         </form>
                     </div>
                     <div class="modal-footer">
@@ -163,23 +132,23 @@
             </div>
         </div>
 
-        <!-- Модальное окно для подтверждения удаления -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        Вы точно хотите удалить запись?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-                        <button type="button" class="btn btn-danger">Удалить</button>
-                    </div>
-                </div>
-            </div>
+        <!-- Модальное окно "Удалить пользователя" -->  
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">  
+            <div class="modal-dialog">  
+                <div class="modal-content">  
+                    <div class="modal-header">  
+                        <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>  
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>  
+                    </div>  
+                    <div class="modal-body">  
+                        <p>Вы уверены, что хотите удалить пользователя <strong id="deleteFIO"></strong>?</p>  
+                    </div>  
+                    <div class="modal-footer">  
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>  
+                        <button type="button" class="btn btn-danger" id="confirmDeleteButton">Удалить</button>  
+                    </div>  
+                </div>  
+            </div>  
         </div>
 
         <!-- Модальное окно для редактирования записи -->
@@ -221,6 +190,26 @@
                 </div>
             </div>
         </div>
+
+        <!-- Модальное окно "Смотреть пользователя" -->  
+    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">  
+        <div class="modal-dialog">  
+            <div class="modal-content">  
+                <div class="modal-header">  
+                    <h5 class="modal-title" id="viewModalLabel">Информация о пользователе</h5>  
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>  
+                </div>  
+                <div class="modal-body">  
+                    <p><strong>ФИО:</strong> <span id="viewFIO"></span></p>  
+                    <p><strong>Должность:</strong> <span id="viewPosition"></span></p>  
+                    <p><strong>Контактная информация:</strong> <span id="viewContact"></span></p>  
+                    <p><strong>Подразделение:</strong> <span id="viewDepartment"></span></p>  
+                    <p><strong>Статус:</strong> <span id="viewStatus"></span></p>  
+                    <p><strong>Дата регистрации:</strong> <span id="viewDate"></span></p>  
+                </div>  
+            </div>  
+        </div>  
+    </div>
 
         <!-- Модальное окно для настройки отображения колонок -->
         <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
@@ -286,174 +275,8 @@
         </div>
     </div>
 
-    <script>
-        // Применение настроек отображения колонок
-        function applySettings() {
-            const columns = {
-                fio: document.getElementById('columnFioCheck').checked,
-                position: document.getElementById('columnPositionCheck').checked,
-                contact: document.getElementById('columnContactCheck').checked,
-                department: document.getElementById('columnDepartmentCheck').checked,
-                status: document.getElementById('columnStatusCheck').checked,
-                date: document.getElementById('columnDateCheck').checked
-            };
 
-            document.querySelectorAll('.column-fio').forEach(col => col.style.display = columns.fio ? '' : 'none');
-            document.querySelectorAll('.column-position').forEach(col => col.style.display = columns.position ? '' : 'none');
-            document.querySelectorAll('.column-contact').forEach(col => col.style.display = columns.contact ? '' : 'none');
-            document.querySelectorAll('.column-department').forEach(col => col.style.display = columns.department ? '' : 'none');
-            document.querySelectorAll('.column-status').forEach(col => col.style.display = columns.status ? '' : 'none');
-            document.querySelectorAll('.column-date').forEach(col => col.style.display = columns.date ? '' : 'none');
-
-            // Закрытие модального окна
-            const settingsModal = bootstrap.Modal.getInstance(document.getElementById('settingsModal'));
-            settingsModal.hide();
-        }
-
-        // Маска для поля даты
-        document.getElementById('addDate').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) value = value.slice(0, 2) + '.' + value.slice(2);
-            if (value.length >= 5) value = value.slice(0, 5) + '.' + value.slice(5, 9);
-            e.target.value = value;
-        });
-
-        // Открытие формы редактирования с заполненными данными
-        function editRecord(editButton) {
-            const row = editButton.closest('tr');
-            const fio = row.querySelector('.column-fio').textContent;
-            const position = row.querySelector('.column-position').textContent;
-            const contact = row.querySelector('.column-contact').textContent;
-            const department = row.querySelector('.column-department').textContent;
-            const status = row.querySelector('.column-status').textContent;
-
-            document.getElementById('editFIO').value = fio;
-            document.getElementById('editPosition').value = position;
-            document.getElementById('editContact').value = contact;
-            document.getElementById('editDepartment').value = department;
-            document.getElementById('editStatus').value = status;
-
-            const editModal = new bootstrap.Modal(document.getElementById('editModal'));
-            editModal.show();
-        }
-
-        // Сохранение изменений в записи
-        function updateRecord() {
-            const fio = document.getElementById('editFIO').value;
-            const position = document.getElementById('editPosition').value;
-            const contact = document.getElementById('editContact').value;
-            const department = document.getElementById('editDepartment').value;
-            const status = document.getElementById('editStatus').value;
-            const date = document.getElementById('editDate').value;
-
-            // Получение редактируемой строки
-            const row = document.querySelector('.table tbody tr');
-            row.querySelector('.column-fio').textContent = fio;
-            row.querySelector('.column-position').textContent = position;
-            row.querySelector('.column-contact').textContent = contact;
-            row.querySelector('.column-department').textContent = department;
-            row.querySelector('.column-status').textContent = status;
-            row.querySelector('.column-date').textContent = date;
-
-            // Закрыть модальное окно редактирования
-            const editModal = bootstrap.Modal.getInstance(document.getElementById('editModal'));
-            editModal.hide();
-        }
-
-        // Сохранение новой записи
-        function saveRecord() {
-            const fio = document.getElementById('addFIO').value;
-            const position = document.getElementById('addPosition').value;
-            const contact = document.getElementById('addContact').value;
-            const department = document.getElementById('addDepartment').value;
-            const status = document.getElementById('addStatus').value;
-            const date = document.getElementById('addDate').value;
-
-            const tableBody = document.querySelector('.table tbody');
-            const newRow = `
-                <tr>
-                    <td class="column-fio">${fio}</td>
-                    <td class="column-position">${position}</td>
-                    <td class="column-contact">${contact}</td>
-                    <td class="column-department">${department}</td>
-                    <td class="column-status">${status}</td>
-                    <td class="column-date">${date}</td>
-                    <td class="column-actions text-center">
-                        <img style="margin-left: 10px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
-                        <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                    </td>
-                </tr>
-            `;
-            tableBody.insertAdjacentHTML('beforeend', newRow);
-
-            const addModal = bootstrap.Modal.getInstance(document.getElementById('addModal'));
-            addModal.hide();
-        }
-        
-
-
-    // Функция для поиска и фильтрации строк таблицы
-    function searchTable() {
-        // Получаем все значения из полей ввода для фильтрации
-        const fioFilter = document.querySelector('.column-fio input').value.toLowerCase();
-        const positionFilter = document.querySelector('.column-position input').value.toLowerCase();
-        const contactFilter = document.querySelector('.column-contact input').value.toLowerCase();
-        const departmentFilter = document.querySelector('.column-department input').value.toLowerCase();
-        const statusFilter = document.querySelector('.column-status input').value.toLowerCase();
-        const dateFilter = document.querySelector('.column-date input').value.toLowerCase();
-
-        // Получаем все строки таблицы (кроме первой строки с заголовками)
-        const rows = document.querySelectorAll('table tbody tr');
-
-        // Проходим по каждой строке и проверяем соответствие фильтрам
-        rows.forEach(row => {
-            const fio = row.querySelector('.column-fio').textContent.toLowerCase();
-            const position = row.querySelector('.column-position').textContent.toLowerCase();
-            const contact = row.querySelector('.column-contact').textContent.toLowerCase();
-            const department = row.querySelector('.column-department').textContent.toLowerCase();
-            const status = row.querySelector('.column-status').textContent.toLowerCase();
-            const date = row.querySelector('.column-date').textContent.toLowerCase();
-
-            // Проверяем, соответствуют ли значения фильтрам (или фильтр пустой)
-            const matchesFio = fio.includes(fioFilter);
-            const matchesPosition = position.includes(positionFilter);
-            const matchesContact = contact.includes(contactFilter);
-            const matchesDepartment = department.includes(departmentFilter);
-            const matchesStatus = status.includes(statusFilter);
-            const matchesDate = date.includes(dateFilter);
-
-            // Если строка соответствует всем фильтрам, показываем её, иначе скрываем
-            if (matchesFio && matchesPosition && matchesContact && matchesDepartment && matchesStatus && matchesDate) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
-        });
-    }
-    document.querySelector('.btn-primary').addEventListener('click', searchTable);
-
-    
-    // Функция для установки текущей даты в нужном формате  
-    function setCurrentDate() {  
-        const dateInput = document.getElementById('addDate');  
-        const today = new Date();  
-        const day = String(today.getDate()).padStart(2, '0'); // Обеспечить двухзначный вывод  
-        const month = String(today.getMonth() + 1).padStart(2, '0'); // Январь - это 0  
-        const year = today.getFullYear();  
-        dateInput.value = `${day}.${month}.${year}`; // Установка значения в формате дд.мм.гггг  
-    }  
-
-    // Добавление обработчика события для установки даты, когда модальное окно открывается  
-    var addModal = document.getElementById('addModal');  
-    addModal.addEventListener('show.bs.modal', function (event) {  
-        setCurrentDate(); // Установить текущую дату при открытии модального окна  
-    }); 
-
-
-
-
-
-    </script>
+    <script src="script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
