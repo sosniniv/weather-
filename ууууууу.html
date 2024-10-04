@@ -1,0 +1,115 @@
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Сортируемая таблица</title>  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">  
+    <style>  
+        th {  
+            cursor: pointer;  
+        }  
+    </style>  
+</head>  
+<body>  
+
+<div class="container mt-4">  
+    <table class="table table-bordered">  
+        <thead>  
+            <tr>  
+                <th>ФИО</th>  
+                <th>Должность</th>  
+                <th>Контактная информация</th>  
+                <th>Подразделение</th>  
+                <th>Статус</th>  
+                <th>Дата регистрации</th>  
+                <th>Действие</th>  
+            </tr>  
+        </thead>  
+        <tbody>  
+            <tr>  
+                <td class="column-fio"><input type="text" class="form-control" value="" placeholder="ФИО"></td>  
+                <td class="column-position"><input type="text" class="form-control" value="" placeholder="Должность"></td>  
+                <td class="column-contact"><input type="text" class="form-control" value="" placeholder="Контактная информация"></td>  
+                <td class="column-department"><input type="text" class="form-control" value="" placeholder="Подразделение"></td>  
+                <td class="column-status"><input type="text" class="form-control" value="" placeholder="Статус"></td>  
+                <td class="column-date"><input type="text" class="form-control" value="" placeholder="Дата регистрации"></td>  
+                <td style="text-align: center;"><button class="btn btn-primary" style="width: 100%;">Найти</button></td>  
+            </tr>  
+            <tr>  
+                <td class="column-fio">Иванов Иван Иванович</td>  
+                <td class="column-position">Менеджер</td>  
+                <td class="column-contact">ivanov@example.com</td>  
+                <td class="column-department">Отдел продаж</td>  
+                <td class="column-status">Активный</td>  
+                <td class="column-date">01.01.2023</td>  
+                <td style="text-align: center;"><button class="btn btn-danger" style="width: 100%;">Удалить</button></td>  
+            </tr>  
+            <tr>  
+                <td class="column-fio">Петров Петр Петрович</td>  
+                <td class="column-position">Разработчик</td>  
+                <td class="column-contact">petrov@example.com</td>  
+                <td class="column-department">IT</td>  
+                <td class="column-status">Активный</td>  
+                <td class="column-date">05.02.2023</td>  
+                <td style="text-align: center;"><button class="btn btn-danger" style="width: 100%;">Удалить</button></td>  
+            </tr>  
+            <!-- Добавьте больше строк по необходимости -->  
+        </tbody>  
+    </table>  
+</div>  
+
+<script>  
+    document.addEventListener("DOMContentLoaded", function() {  
+        let fioAscending = true; // Флаг для сортировки по ФИО (по возрастанию)  
+        let dateAscending = true; // Флаг для сортировки по дате (по возрастанию)  
+
+        // Получаем все строки таблицы  
+        const rows = Array.from(document.querySelectorAll("tbody tr")); // Строки таблицы  
+
+        // Функция для сортировки по ФИО  
+        function sortByFIO() {  
+            fioAscending = !fioAscending;  
+            const sortedRows = rows.slice(1).sort((a, b) => {  
+                const fioA = a.querySelector(".column-fio").textContent;  
+                const fioB = b.querySelector(".column-fio").textContent;  
+                return fioAscending ? fioA.localeCompare(fioB) : fioB.localeCompare(fioA);  
+            });  
+            updateTable(sortedRows);  
+        }  
+
+        // Функция для сортировки по дате  
+        function sortByDate() {  
+            dateAscending = !dateAscending;  
+            const sortedRows = rows.slice(1).sort((a, b) => {  
+                const dateA = new Date(a.querySelector(".column-date").textContent.split('.').reverse().join('-'));  
+                const dateB = new Date(b.querySelector(".column-date").textContent.split('.').reverse().join('-'));  
+                return dateAscending ? dateA - dateB : dateB - dateA;  
+            });  
+            updateTable(sortedRows);  
+        }  
+
+        // Функция для обновления таблицы  
+        function updateTable(sortedRows) {  
+            const tbody = document.querySelector("tbody");  
+            const inputRow = tbody.firstElementChild; // Сохраняем первую строку с полями ввода  
+
+            // Очистка данных, кроме первой строки  
+            tbody.innerHTML = "";   
+            
+            // Вставляем первую строку обратно  
+            if (inputRow) {  
+                tbody.appendChild(inputRow);  
+            }  
+            // Добавление отсортированных записей  
+            sortedRows.forEach(record => tbody.appendChild(record));  
+        }  
+
+        // Привязка событий к заголовкам  
+        document.querySelectorAll("th")[0].addEventListener("click", sortByFIO); // Сортировка по ФИО  
+        document.querySelectorAll("th")[5].addEventListener("click", sortByDate); // Сортировка по дате регистрации  
+    });  
+</script>  
+
+</body>  
+</html>
