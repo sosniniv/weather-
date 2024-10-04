@@ -17,21 +17,30 @@
             <button type="button" class="btn button-table">Выгрузки</button>
             <button type="button" class="btn button-table">Загрузки</button>
             <button type="button" class="btn button-table">Печатать</button>
+            <button type="button" class="btn button-table" data-bs-toggle="modal" data-bs-target="#sortModal">Сортировка</button>
         </section>
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
-                    <tr>
-                        <th class="column-fio"><input type="text" class="form-control" value="" placeholder="ФИО"></th>
-                        <th class="column-position"><input type="text" class="form-control" value="" placeholder="Должность"></th>
-                        <th class="column-contact"><input type="text" class="form-control" value="" placeholder="Контактная информация"></th>
-                        <th class="column-department"><input type="text" class="form-control" value="" placeholder="Подразделение"></th>
-                        <th class="column-status"><input type="text" class="form-control" value="" placeholder="Статус"></th>
-                        <th class="column-date"><input type="text" class="form-control" value="" placeholder="Дата регистрации"></th>
-                        <th style="text-align: center;"><button class="btn btn-primary" style="width: 100%;">Найти</button></th>
-                    </tr>
+                    <th>ФИО<img src="sort.svg" alt="Сортировка" width="20" height="20" style="margin-bottom: 4px; margin-left: 15px;" onclick="sortTable(0, this)"></th>
+                    <th>Должность</th>
+                    <th>Контактная информация</th>
+                    <th>Подразделение</th>
+                    <th>Статус</th>
+                    <th>Дата регистрации<img src="sort.svg" alt="Сортировка" width="20" height="20" style="margin-bottom: 4px; margin-left: 15px;" onclick="sortTable(5, this)"></th>
+                    <th>Действия</th>
                 </thead>
+                
                 <tbody>
+                    <tr>
+                        <td class="column-fio"><input type="text" class="form-control" value="" placeholder="ФИО"></td>
+                        <td class="column-position"><input type="text" class="form-control" value="" placeholder="Должность"></td>
+                        <td class="column-contact"><input type="text" class="form-control" value="" placeholder="Контактная информация"></td>
+                        <td class="column-department"><input type="text" class="form-control" value="" placeholder="Подразделение"></td>
+                        <td class="column-status"><input type="text" class="form-control" value="" placeholder="Статус"></td>
+                        <td class="column-date"><input type="text" class="form-control" value="" placeholder="Дата регистрации"></td>
+                        <td style="text-align: center;"><button class="btn btn-primary" style="width: 100%;">Найти</button></td>
+                    </tr>
                     <tr>
                         <td class="column-fio">Иванов Иван Иванович</td>
                         <td class="column-position">Зоотехник</td>
@@ -80,7 +89,7 @@
                         <td class="column-date">05.12.2021</td>
                         <td class="column-actions text-center">
                             <img style="margin-left: 20px;" src="edit.svg" width="30" height="30" title="Редактировать пользователя" onclick="editRecord(this)">
-            <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" onclick="prepareDelete(this)" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                             <img style="margin-left: 20px;" src="delete-user.svg" width="30" height="30" title="Удалить пользователя" onclick="prepareDelete(this)" data-bs-toggle="modal" data-bs-target="#deleteModal">
                             <img style="margin-left: 20px;" src="eye.svg" width="30" height="30" title="Смотреть пользователя" onclick="viewRecord(this)" data-bs-toggle="tooltip">
                         </td>
                     </tr>
@@ -88,6 +97,76 @@
             </table>
         </div>
 
+        <!-- Модальное окно для сортировки записи -->
+        <div class="modal fade" id="sortModal" tabindex="-1" aria-labelledby="sortModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="sortModalLabel">Сортировка записей</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="sortForm">
+                            <!-- Сортировка по ФИО -->
+                            <div class="mb-3">
+                                <label for="sortFIO" class="form-label">ФИО</label>
+                                <select id="sortFIO" class="form-select">
+                                    <option value="">Без сортировки</option>
+                                    <option value="asc">От А до Я</option>
+                                    <option value="desc">От Я до А</option>
+                                </select>
+                            </div>
+                            <!-- Сортировка по должности -->
+                            <div class="mb-3">
+                                <label for="sortPosition" class="form-label">Должность</label>
+                                <select id="sortPosition" class="form-select">
+                                    <option value="">Все</option>
+                                    <option value="Инженер">Инженер</option>
+                                    <option value="Менеджер">Менеджер</option>
+                                    <option value="Зоотехник">Зоотехник</option>
+                                    <option value="Бухгалтер">Бухгалтер</option>
+                                </select>
+                            </div>
+                            <!-- Сортировка по подразделению -->
+                            <div class="mb-3">
+                                <label for="sortDepartment" class="form-label">Подразделение</label>
+                                <select id="sortDepartment" class="form-select">
+                                    <option value="">Все</option>
+                                    <option value="Корпус А-12">Корпус А-12</option>
+                                    <option value="Отдел продаж">Отдел продаж</option>
+                                    <option value="Технический отдел">Технический отдел</option>
+                                    <option value="Финансовый отдел">Финансовый отдел</option>
+                                </select>
+                            </div>
+                            <!-- Сортировка по статусу -->
+                            <div class="mb-3">
+                                <label for="sortStatus" class="form-label">Статус</label>
+                                <select id="sortStatus" class="form-select">
+                                    <option value="">Все</option>
+                                    <option value="Активный">Активный</option>
+                                    <option value="Уволен">Уволен</option>
+                                </select>
+                            </div>
+                            <!-- Сортировка по дате регистрации -->
+                            <div class="mb-3">
+                                <label for="sortDate" class="form-label">Дата регистрации</label>
+                                <select id="sortDate" class="form-select">
+                                    <option value="">Без сортировки</option>
+                                    <option value="new">От новой к старой</option>
+                                    <option value="old">От старой к новой</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" onclick="applySort()">Применить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
         <!-- Модальное окно для добавления новой записи -->
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -118,7 +197,7 @@
                                 <label for="addStatus" class="form-label">Статус</label>
                                 <input type="text" class="form-control" id="addStatus" required>
                             </div>
-                            <div class="mb-3">  
+                            <div class="mb-3" style="display: none;">  
                                 <label for="addDate" class="form-label">Дата регистрации</label>  
                                 <input type="text" class="form-control" id="addDate" placeholder="дд.мм.гггг" required readonly>  
                             </div>  
@@ -191,7 +270,7 @@
             </div>
         </div>
 
-        <!-- Модальное окно "Смотреть пользователя" -->  
+    <!-- Модальное окно "Смотреть пользователя" -->  
     <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">  
         <div class="modal-dialog">  
             <div class="modal-content">  
@@ -274,9 +353,11 @@
             </nav>
         </div>
     </div>
-
-
-    <script src="script.js"></script>
+    <script src="record_counter.js"></script>
+    <script src="adding_employees.js"></script>
+    <script src="table_setup.js"></script>
+    <script src="sorting.js"></script>
+    <script src="action.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
