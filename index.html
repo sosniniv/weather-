@@ -10,15 +10,16 @@
 <body>
     <div class="container-table">
         <div class="label">Справочник сотрудников</div>
-        <section class="btn-container" style="margin-bottom: 1em;">
-            <div class="counter">Счётчик записей: <span id="recordCounter">0</span></div>
-            <button type="button" class="btn button-table" data-bs-toggle="modal" data-bs-target="#addModal">Добавить</button>
-            <button type="button" class="btn button-table" data-bs-toggle="modal" data-bs-target="#settingsModal">Настройки</button>
-            <button type="button" class="btn button-table">Выгрузки</button>
-            <button type="button" class="btn button-table">Загрузки</button>
-            <button type="button" class="btn button-table">Печатать</button>
-            <button type="button" class="btn button-table" data-bs-toggle="modal" data-bs-target="#sortModal">Сортировка</button>
-        </section>
+        <section class="btn-container" style="display: flex; justify-content: flex-end; align-items: center;">
+            <div class="counter" style="margin-right: auto;">Счётчик записей: <span id="recordCounter">0</span>
+                <button style="margin-left: 1em; background-color: #007FFF; color: aliceblue;" type="button" class="btn button-table" data-bs-toggle="modal" data-bs-target="#addModal">Добавить</button>
+            </div>
+            <button type="button" class="btn button-table right-group"><img src="export.svg" alt="Выгрузить" width="20" height="20"></button>
+            <button type="button" class="btn button-table right-group"><img src="import.svg" alt="Загрузить" width="20" height="20"></button>
+            <button type="button" class="btn button-table right-group"><img src="printing.svg" alt="Печать" width="20" height="20"></button>
+            <button type="button" class="btn button-table right-group" data-bs-toggle="modal" data-bs-target="#sortModal"><img src="сортировка.svg" alt="Сортировка" width="20" height="20"></button>
+            <button type="button" class="btn button-table " data-bs-toggle="modal" data-bs-target="#settingsModal"><img src="settings.svg" alt="Настройки" width="20" height="20"></button>
+        </section>        
         <div class="table-responsive">
             <table class="table table-bordered">
                 <thead>
@@ -341,7 +342,7 @@
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
                     <li class="page-item"><a class="page-link" href="#">2</a></li>
                     <li class="page-item"><a class="page-link" href="#">3</a></li>
                     <li class="page-item">
