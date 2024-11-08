@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты | [название сайта]</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    /* Основные стили секции "Контакты" */
+    .contact-section {
+      background-color: #f8f9fa;
+      padding: 50px 15px;
+      border-radius: 10px;
+    }
+    .contact-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+    .contact-info p, .social-links p {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    .social-icon {
+      font-size: 1.5rem;
+      color: #007bff;
+      margin-right: 10px;
+    }
+    .form-label {
+      font-weight: bold;
+    }
+    /* Стили формы */
+    .contact-form .form-control {
+      border-radius: 5px;
+      padding: 10px;
+    }
+    .contact-form button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    /* Медиа-запрос для маленьких экранов (телефоны) */
+    @media (max-width: 768px) {
+      .contact-title {
+        font-size: 2rem;
+      }
+      .contact-info, .social-links {
+        text-align: center;
+      }
+      .social-icon {
+        display: block;
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+      }
+      .social-links p {
+        display: inline-block;
+        margin: 0 5px;
+      }
+      .contact-form button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container contact-section mt-5 mb-5">
+  <h1 class="text-center contact-title mb-5">Контакты</h1>
+  
+  <p class="text-center lead">Мы всегда рады общению с нашими пользователями! Если у вас есть вопросы, предложения или нужна помощь, свяжитесь с нами удобным для вас способом.</p>
+  
+  <div class="row">
+    <!-- Контактные данные -->
+    <div class="col-md-6 mb-4 contact-info">
+      <h3>Наши контактные данные</h3>
+      <p><strong>Электронная почта:</strong> <a href="mailto:info@[название_сайта].com">info@[название_сайта].com</a></p>
+      <p><strong>Телефон:</strong> <a href="tel:+1234567890">+1 (234) 567-890</a></p>
+      <p><strong>Адрес офиса:</strong><br> 12345, Москва, ул. Примерная, д. 1</p>
+    </div>
+    
+    <!-- Социальные сети -->
+    <div class="col-md-6 mb-4 social-links">
+      <h3>Поддержка в социальных сетях</h3>
+      <p>Подписывайтесь на нас, чтобы быть в курсе всех новостей и обновлений:</p>
+      <p>
+        <a href="#" class="social-icon">📘 Facebook</a>
+        <a href="#" class="social-icon">📸 Instagram</a>
+        <a href="#" class="social-icon">🐦 Twitter</a>
+        <a href="#" class="social-icon">💼 LinkedIn</a>
+      </p>
+    </div>
+  </div>
+  
+  <!-- Форма обратной связи -->
+  <h3 class="mt-5">Обратная связь</h3>
+  <p>Вы можете также оставить сообщение через форму ниже, и мы свяжемся с вами как можно скорее!</p>
+  
+  <form class="contact-form">
+    <div class="mb-3">
+      <label for="name" class="form-label">Имя</label>
+      <input type="text" class="form-control" id="name" placeholder="Введите ваше имя">
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label">Электронная почта</label>
+      <input type="email" class="form-control" id="email" placeholder="Введите вашу электронную почту">
+    </div>
+    <div class="mb-3">
+      <label for="message" class="form-label">Сообщение</label>
+      <textarea class="form-control" id="message" rows="5" placeholder="Введите ваше сообщение"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Отправить сообщение</button>
+  </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Практика | [название сайта]</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    /* Основные стили секции "Практика" */
+    .practice-section {
+      padding: 50px 15px;
+      background-color: #f8f9fa;
+    }
+    .practice-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .practice-card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      background-color: #fff;
+      transition: transform 0.3s ease;
+    }
+    .practice-card:hover {
+      transform: translateY(-5px);
+    }
+    .practice-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .practice-content {
+      padding: 20px;
+    }
+    .practice-content h5 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .practice-content p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    .start-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .start-btn:hover {
+      background-color: #0056b3;
+    }
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 768px) {
+      .practice-title {
+        font-size: 2rem;
+      }
+      .practice-card img {
+        height: 180px;
+      }
+      .practice-content h5 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container practice-section">
+  <h1 class="practice-title">Практика</h1>
+  
+  <div class="row">
+    <!-- Карточка упражнения - Грамматика -->
+    <div class="col-md-4 mb-4">
+      <div class="practice-card">
+        <img src="https://via.placeholder.com/400x200" alt="Грамматические упражнения">
+        <div class="practice-content">
+          <h5>Грамматические упражнения</h5>
+          <p>Упражнения для улучшения грамматических навыков. Практикуйте основные правила английского языка.</p>
+          <a href="#" class="start-btn">Начать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка упражнения - Аудирование -->
+    <div class="col-md-4 mb-4">
+      <div class="practice-card">
+        <img src="https://via.placeholder.com/400x200" alt="Аудирование">
+        <div class="practice-content">
+          <h5>Аудирование</h5>
+          <p>Задания для тренировки восприятия на слух. Улучшайте понимание английской речи на слух.</p>
+          <a href="#" class="start-btn">Начать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка упражнения - Чтение -->
+    <div class="col-md-4 mb-4">
+      <div class="practice-card">
+        <img src="https://via.placeholder.com/400x200" alt="Чтение">
+        <div class="practice-content">
+          <h5>Чтение</h5>
+          <p>Упражнения для развития навыков чтения. Читайте тексты и отвечайте на вопросы по содержанию.</p>
+          <a href="#" class="start-btn">Начать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Карточка упражнения - Письмо -->
+    <div class="col-md-4 mb-4">
+      <div class="practice-card">
+        <img src="https://via.placeholder.com/400x200" alt="Письмо">
+        <div class="practice-content">
+          <h5>Письмо</h5>
+          <p>Задания для улучшения навыков письменной речи. Пишите тексты и совершенствуйте ваш английский.</p>
+          <a href="#" class="start-btn">Начать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка упражнения - Разговорная практика -->
+    <div class="col-md-4 mb-4">
+      <div class="practice-card">
+        <img src="https://via.placeholder.com/400x200" alt="Разговорная практика">
+        <div class="practice-content">
+          <h5>Разговорная практика</h5>
+          <p>Упражнения для тренировки разговорных навыков. Практикуйте английский в реальных ситуациях.</p>
+          <a href="#" class="start-btn">Начать</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка упражнения - Тесты -->
+    <div class="col-md-4 mb-4">
+      <div class="practice-card">
+        <img src="https://via.placeholder.com/400x200" alt="Тесты">
+        <div class="practice-content">
+          <h5>Тесты на проверку знаний</h5>
+          <p>Пройдите тесты и узнайте, насколько хорошо вы освоили материал. Оцените свои успехи.</p>
+          <a href="#" class="start-btn">Начать</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Уроки | [название сайта]</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    /* Основные стили секции "Уроки" */
+    .lessons-section {
+      padding: 50px 15px;
+      background-color: #f8f9fa;
+    }
+    .lessons-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .lesson-card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      background-color: #fff;
+      transition: transform 0.3s ease;
+    }
+    .lesson-card:hover {
+      transform: translateY(-5px);
+    }
+    .lesson-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .lesson-content {
+      padding: 20px;
+    }
+    .lesson-content h5 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .lesson-content p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    .view-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .view-btn:hover {
+      background-color: #0056b3;
+    }
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 768px) {
+      .lessons-title {
+        font-size: 2rem;
+      }
+      .lesson-card img {
+        height: 180px;
+      }
+      .lesson-content h5 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container lessons-section">
+  <h1 class="lessons-title">Уроки</h1>
+  
+  <div class="row">
+    <!-- Карточка урока - Введение в грамматику -->
+    <div class="col-md-4 mb-4">
+      <div class="lesson-card">
+        <img src="https://via.placeholder.com/400x200" alt="Введение в грамматику">
+        <div class="lesson-content">
+          <h5>Введение в грамматику</h5>
+          <p>Основы грамматики английского языка. В этом уроке вы познакомитесь с базовыми правилами.</p>
+          <a href="#" class="view-btn">Посмотреть урок</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка урока - Аудирование для начинающих -->
+    <div class="col-md-4 mb-4">
+      <div class="lesson-card">
+        <img src="https://via.placeholder.com/400x200" alt="Аудирование для начинающих">
+        <div class="lesson-content">
+          <h5>Аудирование для начинающих</h5>
+          <p>Упражнения для тренировки восприятия английской речи на слух, начиная с простых фраз и диалогов.</p>
+          <a href="#" class="view-btn">Посмотреть урок</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка урока - Словарный запас -->
+    <div class="col-md-4 mb-4">
+      <div class="lesson-card">
+        <img src="https://via.placeholder.com/400x200" alt="Словарный запас">
+        <div class="lesson-content">
+          <h5>Словарный запас</h5>
+          <p>Учите новые слова и фразы, улучшая ваш словарный запас. Этот урок поможет вам запомнить важные слова для повседневного общения.</p>
+          <a href="#" class="view-btn">Посмотреть урок</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!-- Карточка урока - Говорение и произношение -->
+    <div class="col-md-4 mb-4">
+      <div class="lesson-card">
+        <img src="https://via.placeholder.com/400x200" alt="Говорение и произношение">
+        <div class="lesson-content">
+          <h5>Говорение и произношение</h5>
+          <p>Практикуйте правильное произношение и научитесь разговаривать на английском языке.</p>
+          <a href="#" class="view-btn">Посмотреть урок</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка урока - Чтение на английском -->
+    <div class="col-md-4 mb-4">
+      <div class="lesson-card">
+        <img src="https://via.placeholder.com/400x200" alt="Чтение на английском">
+        <div class="lesson-content">
+          <h5>Чтение на английском</h5>
+          <p>Чтение простых текстов и обсуждение их содержания для улучшения навыков чтения на английском.</p>
+          <a href="#" class="view-btn">Посмотреть урок</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка урока - Письмо на английском -->
+    <div class="col-md-4 mb-4">
+      <div class="lesson-card">
+        <img src="https://via.placeholder.com/400x200" alt="Письмо на английском">
+        <div class="lesson-content">
+          <h5>Письмо на английском</h5>
+          <p>Уроки, посвященные написанию писем, сообщений и других текстов на английском языке.</p>
+          <a href="#" class="view-btn">Посмотреть урок</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

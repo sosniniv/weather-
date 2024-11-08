@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ресурсы | [название сайта]</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    /* Основные стили секции "Ресурсы" */
+    .resources-section {
+      padding: 50px 15px;
+      background-color: #f8f9fa;
+    }
+    .resources-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .resource-card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      background-color: #fff;
+      transition: transform 0.3s ease;
+    }
+    .resource-card:hover {
+      transform: translateY(-5px);
+    }
+    .resource-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .resource-content {
+      padding: 20px;
+    }
+    .resource-content h5 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .resource-content p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    .visit-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .visit-btn:hover {
+      background-color: #0056b3;
+    }
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 768px) {
+      .resources-title {
+        font-size: 2rem;
+      }
+      .resource-card img {
+        height: 180px;
+      }
+      .resource-content h5 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container resources-section">
+  <h1 class="resources-title">Полезные ресурсы</h1>
+  
+  <div class="row">
+    <!-- Карточка ресурса - Веб-сайты -->
+    <div class="col-md-4 mb-4">
+      <div class="resource-card">
+        <img src="https://via.placeholder.com/400x200" alt="Ресурс сайт">
+        <div class="resource-content">
+          <h5>Полезные веб-сайты для изучения английского</h5>
+          <p>Обзор лучших сайтов для обучения английскому языку — от грамматики до общения с носителями.</p>
+          <a href="#" class="visit-btn">Посетить</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка ресурса - Приложения -->
+    <div class="col-md-4 mb-4">
+      <div class="resource-card">
+        <img src="https://via.placeholder.com/400x200" alt="Ресурс приложение">
+        <div class="resource-content">
+          <h5>Приложения для изучения английского языка</h5>
+          <p>Узнайте о лучших приложениях, которые помогут вам практиковать английский в любое время и в любом месте.</p>
+          <a href="#" class="visit-btn">Посетить</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Карточка ресурса - Книги -->
+    <div class="col-md-4 mb-4">
+      <div class="resource-card">
+        <img src="https://via.placeholder.com/400x200" alt="Ресурс книга">
+        <div class="resource-content">
+          <h5>Книги для улучшения навыков английского</h5>
+          <p>Подборка книг, которые помогут вам улучшить навыки чтения и понимания английского языка.</p>
+          <a href="#" class="visit-btn">Посетить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Блог | [название сайта]</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css">
+  <style>
+    /* Основные стили секции "Блог" */
+    .blog-section {
+      padding: 50px 15px;
+      background-color: #f8f9fa;
+    }
+    .blog-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .blog-card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      background-color: #fff;
+    }
+    .blog-card:hover {
+      transform: translateY(-5px);
+    }
+    .blog-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .blog-content {
+      padding: 20px;
+    }
+    .blog-content h5 {
+      font-size: 1.5rem;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .blog-content p {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+    .read-more-btn {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .read-more-btn:hover {
+      background-color: #0056b3;
+    }
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 768px) {
+      .blog-title {
+        font-size: 2rem;
+      }
+      .blog-card img {
+        height: 180px;
+      }
+      .blog-content h5 {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container blog-section">
+  <h1 class="blog-title">Наш блог</h1>
+  
+  <div class="row">
+    <!-- Первая статья -->
+    <div class="col-md-4 mb-4">
+      <div class="blog-card">
+        <img src="https://via.placeholder.com/400x200" alt="Пример статьи">
+        <div class="blog-content">
+          <h5>Как улучшить знание английского языка</h5>
+          <p>Узнайте, как продвинуться в изучении английского с помощью полезных советов и техник, которые помогут вам быстрее достичь успеха.</p>
+          <a href="#" class="read-more-btn">Читать далее</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Вторая статья -->
+    <div class="col-md-4 mb-4">
+      <div class="blog-card">
+        <img src="https://via.placeholder.com/400x200" alt="Пример статьи">
+        <div class="blog-content">
+          <h5>Лучшие ресурсы для изучения английского языка</h5>
+          <p>Мы собрали лучшие сайты и приложения для практики английского языка. Читайте наш обзор и выбирайте, что подходит именно вам!</p>
+          <a href="#" class="read-more-btn">Читать далее</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Третья статья -->
+    <div class="col-md-4 mb-4">
+      <div class="blog-card">
+        <img src="https://via.placeholder.com/400x200" alt="Пример статьи">
+        <div class="blog-content">
+          <h5>Преимущества двуязычного обучения</h5>
+          <p>Почему стоит изучать второй язык? Исследования показывают, что владение несколькими языками открывает множество возможностей!</p>
+          <a href="#" class="read-more-btn">Читать далее</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
